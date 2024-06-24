@@ -1,30 +1,41 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Vector3 mousePos, worldPos;//À•W—p•Ï”
-    //public int speed = 5;
+    public GameObject target;
+    public float speed;
+    public bool isTouch;
+
+    #region å‚è€ƒã‚µã‚¤ãƒˆ
+    /* å‚è€ƒã‚µã‚¤ãƒˆ
+    ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸåº§æ¨™ã¸ç§»å‹•ã•ã›ã‚‹
+    https://futabazemi.net/unity/click_xpos_move */
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        speed = 0.1f;
+        target = GameObject.Find("target_obj");
+        isTouch = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "target_obj")
+        {
+            isTouch = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ƒ}ƒEƒX¶ƒNƒŠƒbƒN‚ª‰Ÿ‚³‚ê‚½
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    //Y²‚Í‰½‚à‚µ‚È‚¢
-        //    mousePos = Input.mousePosition;//ƒ}ƒEƒXÀ•W‚Ìæ“¾
-        //    worldPos = this.gameObject.transform.position;//Œ»İ‚ÌˆÊ’u‚ğæ“¾
-        //    this.gameObject.transform.position = new Vector3(mousePos.x, worldPos.y, 0.0f);
-        //}
-        
+        if (isTouch == false)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+        }
     }
 }
