@@ -3,52 +3,40 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-//GameObj
-//ターゲット(クリック先)
+//ターゲット(マウス左クリック先のこと)
 public class TargetMove : MonoBehaviour
 {
-    Vector3 mousePos, pos; //マウスとゲームオブジェクトの座標データを格納
+    public GameObject floor_obj;//ターゲット(クリック先オブジェクト)を取得
+    private Vector3 mouse_pos; //マウス座標
+    private Vector3 obj_pos; //ターゲット座標
 
-    void Update()
+    #region 参考サイト
+    /* 参考サイト
+    オブジェクトをクリックした座標へ移動させる
+    https://futabazemi.net/unity/click_xpos_move */
+    #endregion
+
+    // Start is called before the first frame update
+    void Start()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            //マウスの座標を取得する
-            mousePos = Input.mousePosition;
-            //マウス位置を確認
-            Debug.Log(mousePos);
-            //スクリーン座標をワールド座標に変換する
-            pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, 10f, 10f));
-            //ワールド座標をゲームオブジェクトの座標に設定する
-            transform.position = pos;
-        }
+
     }
 
-    //private Vector3 mouse_pos;//マウス座標
-    //private Vector3 target_pos;//オブジェクト座標
-    //
-    //#region 参考サイト
-    ///* 参考サイト
-    //オブジェクトをクリックした座標へ移動させる
-    //https://futabazemi.net/unity/click_xpos_move */
-    //#endregion
-    //
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //
-    //}
-    //
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    //マウス左クリックが押さえれた場合
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        mouse_pos = Input.mousePosition;//マウス座標の取得
-    //        mouse_pos.z = 10.0f;
-    //        target_pos = Camera.main.ScreenToViewportPoint(mouse_pos);//スクリーン座標をオブジェクト座標に変換
-    //        transform.position = new Vector3(target_pos.x, 0, 0);
-    //    }
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        //マウス左クリックが押された時
+        if(Input.GetMouseButtonDown(0))
+        {
+            mouse_pos = Input.mousePosition;//マウスの座標を取得
+            //Debug.Log("現在のマウス座標=" + mouse_pos);//マウス位置確認
+            obj_pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse_pos.x, obj_pos.y, 10.0f));
+            //とりあえずy座標は地面の上くらいにする（あとで変更するか、位置固定にする）
+            obj_pos.y = -3.5f;//y座標は動かせない（このy座標はプレイヤーy座標となる）
+            Debug.Log("ターゲットy座標" + obj_pos.y);
+            //ワールド座標をオブジェクトの座標に設定
+            this.transform.position = obj_pos;
+            //Debug.Log("ターゲット座標=" + obj_pos);//ターゲット位置確認
+        }
+    }
 }
