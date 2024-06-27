@@ -6,7 +6,7 @@ using UnityEngine;
 //マウスが押された時のみプレイヤー移動させる
 public class Player : MonoBehaviour
 {
-    public GameObject target;//ターゲット(クリック先オブジェクト)を取得
+    public GameObject target_obj;//ターゲット(クリック先オブジェクト)を取得
     public float speed;//プレイヤーがターゲットに移動するスピード
     public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
 
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         speed = 0.1f;//のちUnity上で変更できるようにする
-        target = GameObject.Find("target_obj");
+        target_obj = GameObject.Find("target");
         isTouch = false;
     }
 
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //プレイヤーとターゲット(クリック先オブジェクト)
-        if (collision.gameObject.name == "target_obj")
+        if (collision.gameObject.name == "target")
         {
             isTouch = true;
         }
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         {
             //プレイヤー座標にターゲットの座標に変換
             //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, target_obj.transform.position, speed);
         }
     }
 }
