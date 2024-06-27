@@ -6,7 +6,6 @@ using UnityEngine;
 //ターゲット(マウス左クリック先のこと)
 public class TargetMove : MonoBehaviour
 {
-    public GameObject floor_obj;//ターゲット(クリック先オブジェクト)を取得
     private Vector3 mouse_pos; //マウス座標
     private Vector3 obj_pos; //ターゲット座標
 
@@ -25,7 +24,7 @@ public class TargetMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //マウス左クリックが押された時
+        //マウス左クリックが押された場合
         if(Input.GetMouseButtonDown(0))
         {
             mouse_pos = Input.mousePosition;//マウスの座標を取得
@@ -33,7 +32,6 @@ public class TargetMove : MonoBehaviour
             obj_pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse_pos.x, obj_pos.y, 10.0f));
             //とりあえずy座標は地面の上くらいにする（あとで変更するか、位置固定にする）
             obj_pos.y = -3.5f;//y座標は動かせない（このy座標はプレイヤーy座標となる）
-            Debug.Log("ターゲットy座標" + obj_pos.y);
             //ワールド座標をオブジェクトの座標に設定
             this.transform.position = obj_pos;
             //Debug.Log("ターゲット座標=" + obj_pos);//ターゲット位置確認
