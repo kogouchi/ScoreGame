@@ -31,7 +31,7 @@ public class TargetMove : MonoBehaviour
             //Debug.Log("現在のマウス座標=" + mouse_pos);//マウス位置確認
             obj_pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse_pos.x, obj_pos.y, 10.0f));
             //とりあえずy座標は地面の上くらいにする（あとで変更するか、位置固定にする）
-            obj_pos.y = -3.5f;//y座標は動かせない（このy座標はプレイヤーy座標となる）
+            obj_pos.y = -8.5f;//y座標は動かせない（このy座標はプレイヤーy座標となる）
             //ワールド座標をオブジェクトの座標に設定
             this.transform.position = obj_pos;
             //Debug.Log("ターゲット座標=" + obj_pos);//ターゲット位置確認
