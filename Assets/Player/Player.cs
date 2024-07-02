@@ -2,26 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-#region Player.cs
-/*左右移動↓
-プレイヤー側からターゲットの位置を取得
-マウスが押された時のみプレイヤー移動 */
-/*ジャンプ↓
-
-*/
-#endregion
-
+//プレイヤー側からターゲットの位置を取得する
+//マウスが押された時のみプレイヤー移動させる
 public class Player : MonoBehaviour
 {
     public GameObject target_obj;//ターゲット(クリック先オブジェクト)を取得
-    public int jumpnum;//ジャンプを数える(2段階ジャンプする予定)
-    //public int jumpcnt;//ジャンプした数を数える
     public float speed;//プレイヤーがターゲットに移動するスピード
-    public float jumping;//ジャンプ
-    public bool isTouch;//ターゲットの位置でない状態 = true, ターゲットの位置の状態 = false
+    public float jumppower;//ジャンプ力
+    public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
+    public Rigidbody2D rb;//Rigidbody2Dを取得
 
-    //private Vector3 worldpos;
-    private Rigidbody2D rb2d;//Rigidbody2Dの格納
+    private bool isJumping;//ジャンプできる状態 = true, ジャンプできない状態 = false
+    private Vector3 now_pos;//現在の位置
+
     #region 参考サイト
     /* 参考サイト
     オブジェクトをクリックした座標へ移動させる
@@ -31,15 +24,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 0.025f;//移動速度
-        //jumpcnt = 0;
-        jumpnum = 2;//ジャンプ回数
-        jumping = 20.0f;//ジャンプ力(のちに画面の３分の１分に変更させる)
-        isTouch = false;//ターゲットの位置の状態
-
-        target_obj = GameObject.Find("target");//ターゲットオブジェクト
-        rb2d = GetComponent<Rigidbody2D>();//Rigidbody2Dを取得
-
+        speed = 0.025f;
+        jumppower = 4.0f;
+        target_obj = GameObject.Find("target");
+        isTouch = false;
+        isJumping = false;
+        //transform.position = new Vector3(0.0f, 3.0f, 0.0f);
     }
 
     //当たり判定
@@ -48,42 +38,41 @@ public class Player : MonoBehaviour
         //プレイヤーとターゲット(クリック先オブジェクト)が当たった場合
         if (collision.gameObject.name == "target")
         {
-            isTouch = true;//ターゲットの位置でない状態
+            isTouch = true;
+        }
+        //地面とプレイヤーが当たった場合
+        if(collision.gameObject.name == "floor")
+        {
+            isJumping = false;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ジャンプ処理
-        //ジャンプした回数がjumpnumより少ない場合 &&
-        //スペースキーが押された場合
-        if (Input.GetKey(KeyCode.Space))// && jumpcnt < jumpnum)
-        {
-            //transform.positionを使うのではなくaddForce()を使って力を加える
-            //Vector3 worldpos = this.transform.position;
-            rb2d.AddForce(new Vector3(0, jumping, 0), ForceMode2D.Force);//AddForce(新しく位置を生成)
-            //GetComponent<Rigidbody2D>().MovePosition(transform.position + new Vector3(0, jumping * jumpcnt, 0));
-            
-            Debug.Log("ジャンプ位置" + jumping);
-            //jumpcnt++;//ジャンプした回数カウント
-        }
-        //プレイヤーが地面に当たった場合
-        if(transform.position.y == target_obj.transform.position.y)
-        {
-            //jumpcnt = 0;//カウントを0に戻す
-        }
-
+        now_pos = gameObject.transform.position;//現在の位置情報取得(ジャンプする時に戻ってこなければいけないため)
         PlayerMove();//プレイヤー移動処理関連
     }
 
-    
+    private void FixedUpdate()
+    {
+        //ジャンプ処理
+        //スペースキーが押された場合
+        if (Input.GetKey(KeyCode.Space) && !isJumping)
+        {
+            //transform.positionを使うのではなくaddForce()を使って力を加える
+            
+            //GetComponent<Rigidbody2D>().AddForce(0, 0, 0);
+            //rb.AddForce(transform.up * speed, ForceMode2D.Impulse);//試し
+            Debug.Log("ジャンプ");
+            isJumping = true;
+        }
+    }
 
-    //現状：下記は移動処理(のちジャンプ処理も関数内に入れる予定)
+    //PlayerMove＝左右移動とジャンプ処理
     void PlayerMove()
     {
-        //左右移動処理
-        //ターゲットの位置の状態
+        //左右移動処理（マウスフラグ）
         if (isTouch == false)
         {
             //プレイヤー座標にターゲットの座標に変換

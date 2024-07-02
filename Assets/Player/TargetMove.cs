@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-#region TargetMove.cs
-/* マウス位置座標の取得
-ワールド座標に設定 */
-#endregion
-
+//ターゲット(マウス左クリック先のこと)
 public class TargetMove : MonoBehaviour
 {
     private Vector3 mouse_pos; //マウス座標

@@ -285,9 +285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target_obj: {fileID: 1213979291}
-  jumpnum: 0
   speed: 0
-  jumping: 0
+  jumppower: 0
   isTouch: 0
 --- !u!1 &1213979291
 GameObject:
