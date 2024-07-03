@@ -156,7 +156,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 15
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -285,9 +285,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target_obj: {fileID: 1213979291}
-  speed: 0
+  clickspeed: 0
+  keyspeed: 0
   jumppower: 0
   isTouch: 0
+  rb2d: {fileID: 0}
+  getpos: {x: 0, y: 0, z: 0}
 --- !u!1 &1213979291
 GameObject:
   m_ObjectHideFlags: 0

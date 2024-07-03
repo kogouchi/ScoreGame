@@ -5,14 +5,17 @@ using UnityEngine;
 //プレイヤー側からターゲットの位置を取得する
 //マウスが押された時のみプレイヤー移動させる
 //プレイヤーRigidbody2D「Linear Drag」の数値を「15」変更
+//プレイヤーRigidbody2D「Constraints」の「z」をチェックを外す
 public class Player : MonoBehaviour
 {
     public GameObject target_obj;//ターゲット(クリック先オブジェクト)を取得
-    public float speed;//プレイヤーがターゲットに移動するスピード
+    public float clickspeed;//プレイヤーがターゲットに移動するスピード
+    public float keyspeed;//プレイヤーがキーで移動する
     public float jumppower;//ジャンプ力
     public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
-
-    private Rigidbody2D rb2d;//Rigidbody2D
+    public Rigidbody2D rb2d;//Rigidbody2D
+    public Vector3 getpos;//現在のプレイヤー座標取得
+    
     private bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
 
     #region 参考サイト
@@ -27,8 +30,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 0.2f;//移動速度
-        jumppower = 15000.0f;//ジャンプの高さ
+        clickspeed = 0.05f;//移動速度
+        keyspeed = 0.0f;
+        jumppower = 800.0f;//ジャンプの高さ
         target_obj = GameObject.Find("target");
         isTouch = false;//クリックしているかどうか
         isGround = false;//地面についているかどうか
@@ -39,8 +43,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         PlayerJump();//ジャンプ処理
-        PlayerClickMove();//クリック移動処理
         PlayerArrowKeyMove();//矢印キー移動処理
+        PlayerClickMove();//クリック移動処理
     }
 
     //各関数---------------------------------
@@ -52,16 +56,30 @@ public class Player : MonoBehaviour
         {
             //プレイヤー座標にターゲットの座標に変換
             //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
-            transform.position = Vector3.MoveTowards(transform.position, target_obj.transform.position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, target_obj.transform.position, clickspeed);
         }
     }
     //矢印キー移動処理関数
     void PlayerArrowKeyMove()
     {
-        //左矢印キーが押された場合
-        if (Input.GetKey(KeyCode.RightArrow)) { };
+        //現在の位置情報を取得
+        getpos = this.gameObject.transform.position;
         //右矢印キーが押された場合
-        if (Input.GetKey(KeyCode.LeftArrow)) { };
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            keyspeed = 0.1f;
+        }
+        //左矢印キーが押された場合
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            keyspeed = -0.1f;
+        }
+        else
+        {
+            keyspeed = 0.0f;
+        }
+        //現在の位置からx方向のみkeyspeedを足す
+        this.gameObject.transform.position = new Vector3(getpos.x + keyspeed, getpos.y, getpos.z);
     }
     //ジャンプ処理
     void PlayerJump()
@@ -72,9 +90,8 @@ public class Player : MonoBehaviour
             //スペースキーが押された場合
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Vector3 force = new Vector3(0, jumppower, 0);
                 //Debug.Log("ジャンプした");
-                rb2d.AddForce(force);//AddForce() 力を加える
+                rb2d.AddForce(new Vector3(0, jumppower, 0));//AddForce() 力を加える
             }
         }
     }
