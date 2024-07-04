@@ -13,9 +13,8 @@ public class Player : MonoBehaviour
     public float keyspeed;//プレイヤーがキーで移動する
     public float jumppower;//ジャンプ力
     public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
-    public Rigidbody2D rb2d;//Rigidbody2D
-    public Vector3 getpos;//現在のプレイヤー座標取得
     
+    private Rigidbody2D rb2d;//Rigidbody2D
     private bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
 
     #region 参考サイト
@@ -31,7 +30,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         clickspeed = 0.05f;//移動速度
-        keyspeed = 0.0f;
+        keyspeed = 0.1f;
         jumppower = 800.0f;//ジャンプの高さ
         target_obj = GameObject.Find("target");
         isTouch = false;//クリックしているかどうか
@@ -48,8 +47,26 @@ public class Player : MonoBehaviour
     }
 
     //各関数---------------------------------
+    //矢印キー移動処理関数
+    private void PlayerArrowKeyMove()
+    {
+        //右矢印キーが押された場合
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            Vector2 pos = transform.position;//現在の位置情報取得
+            pos.x += 0.05f;
+            target_obj.transform.position = pos;//ターゲットごと動かす
+        }
+        //左矢印キーが押された場合
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            Vector2 pos = transform.position;//現在の位置情報取得
+            pos.x -= 0.05f;
+            target_obj.transform.position = pos;//ターゲットごと動かす
+        }
+    }
     //クリック移動処理関数
-    void PlayerClickMove()
+    private void PlayerClickMove()
     {
         //左右移動処理（マウスフラグ）
         if (isTouch == false)
@@ -59,30 +76,8 @@ public class Player : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target_obj.transform.position, clickspeed);
         }
     }
-    //矢印キー移動処理関数
-    void PlayerArrowKeyMove()
-    {
-        //現在の位置情報を取得
-        getpos = this.gameObject.transform.position;
-        //右矢印キーが押された場合
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            keyspeed = 0.1f;
-        }
-        //左矢印キーが押された場合
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            keyspeed = -0.1f;
-        }
-        else
-        {
-            keyspeed = 0.0f;
-        }
-        //現在の位置からx方向のみkeyspeedを足す
-        this.gameObject.transform.position = new Vector3(getpos.x + keyspeed, getpos.y, getpos.z);
-    }
     //ジャンプ処理
-    void PlayerJump()
+    private void PlayerJump()
     {
         //isGroundがtrueの場合
         if (isGround)
@@ -109,7 +104,7 @@ public class Player : MonoBehaviour
         }
     }
     //OnCollisionStay2D=衝突中毎フレーム呼ばれる
-    void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.name == "ground")
         {
@@ -117,7 +112,7 @@ public class Player : MonoBehaviour
         }
     }
     //OnCollisionExit2D=衝突していた状態から離れたタイミングで呼ばれる
-    void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.name == "ground")
         {
