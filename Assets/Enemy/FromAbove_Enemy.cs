@@ -8,7 +8,6 @@ public class FromAbove_Enemy : MonoBehaviour
 {
     public float enemyspeed;//落下速度
     public bool isTouch;//接触フラグ
-    public int formationflag;//生成フラグ
 
     private Rigidbody2D rb2d;//Rigidbody2D
     private Vector2 enemy_pos;//エネミー位置
@@ -24,7 +23,6 @@ public class FromAbove_Enemy : MonoBehaviour
     {
         enemyspeed = 0.1f;//落下速度
         isTouch = false;//接触フラグ
-        formationflag = 0;//生成フラグ
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
         rb2d.isKinematic = true;//重力を一時無効化
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0.0f);//座標の指定
@@ -43,7 +41,7 @@ public class FromAbove_Enemy : MonoBehaviour
     private IEnumerator FromAboveEnemyMove()
     {
         //1つ生成したら待つ
-        yield return new WaitForSeconds(8.0f);//何秒待つか
+        yield return new WaitForSeconds(1.0f);//何秒待つか
         //接触した場合
         if (isTouch)
         {
@@ -52,38 +50,11 @@ public class FromAbove_Enemy : MonoBehaviour
         }
         else
         {
-            //tremble();
             rb2d.isKinematic = false;//重力を有効化
             //現在のエネミー位置取得
             enemy_pos = transform.position;
             //エネミー位置のy軸の変更
             this.transform.position = new Vector2(enemy_pos.x, enemy_pos.y - enemyspeed);
-        }
-    }
-
-    /// <summary>
-    /// オブジェクトが震える処理
-    /// </summary>
-    private void tremble()
-    {
-        switch(formationflag)
-        {
-            case 1:
-                goto case 3;
-            case 3:
-                this.transform.Translate(30 * Time.deltaTime, 0.0f, 0.0f);
-                if (this.transform.position.x >= 0.5f) formationflag++;
-                break;
-            case 2:
-                this.transform.Translate(30 * Time.deltaTime, 0.0f, 0.0f);
-                if (this.transform.position.x <= -0.5f) formationflag++;
-                break;
-            case 4:
-                this.transform.Translate(30 * Time.deltaTime, 0.0f, 0.0f);
-                if (this.transform.position.x <= 0.0f) formationflag = 0;
-                break;
-
-
         }
     }
 
