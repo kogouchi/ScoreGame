@@ -6,47 +6,56 @@ using UnityEngine;
 //エネミーのRigidbody2Dの「Constraints」の「Freeze Rotation」の z にチェックを入れる（回転を防ぐため）
 public class FromAbove_Enemy : MonoBehaviour
 {
-    //public GameObject line_obj;//エネミーラインを取得→使用しないかもしれない
     public float enemyspeed;//落下速度
     public bool isTouch;//接触フラグ
 
-    //ランダムに表示させるための変数↓↓
-    public Vector2 AreaMin = new Vector2(-16, 0);//最小位置
-    public Vector2 AreaMax = new Vector2(16, 0);//最大位置
+    private Rigidbody2D rb2d;//Rigidbody2D
+    private Vector2 enemy_pos;//エネミー位置
 
-    private Vector2 enemypos;//エネミー位置
+    #region 参考サイト
+    /* 参考サイト
+     * 重力の有効化について
+     * https://qiita.com/kouheyHEY/items/d75028968a0718ca972a */
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyspeed = 0.05f;//落下速度
+        enemyspeed = 0.1f;//落下速度
         isTouch = false;//接触フラグ
+        rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
+        rb2d.isKinematic = true;//重力を一時無効化
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 0.0f);//座標の指定
     }
 
     // Update is called once per frame
     void Update()
     {
-        //揺れる演出処理
-        FromAboveEnemyMove();//本体処理
+        StartCoroutine(FromAboveEnemyMove());//コルーチン開始
     }
 
-    //落下物本体
-    void FromAboveEnemyMove()
+    /// <summary>
+    /// 落下物本体動作
+    /// </summary>
+    /// <returns>敵の削除</returns>
+    private IEnumerator FromAboveEnemyMove()
     {
+        //1つ生成したら待つ
+        yield return new WaitForSeconds(1.0f);//何秒待つか
         //接触した場合
         if (isTouch)
         {
             enemyspeed = 0.0f;//エネミーを停止させる
-            Destroy(gameObject, 1.5f);//エネミー削除
+            Destroy(gameObject, 1.0f);//エネミー削除
         }
         else
         {
+            rb2d.isKinematic = false;//重力を有効化
             //現在のエネミー位置取得
-            enemypos = transform.position;
+            enemy_pos = transform.position;
             //エネミー位置のy軸の変更
-            this.transform.position = new Vector2(enemypos.x, enemypos.y - enemyspeed);
+            this.transform.position = new Vector2(enemy_pos.x, enemy_pos.y - enemyspeed);
         }
-
     }
 
     //地面との衝突判定

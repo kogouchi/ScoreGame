@@ -11,8 +11,8 @@ public class TargetMove : MonoBehaviour
 
     #region 参考サイト
     /* 参考サイト
-    オブジェクトをクリックした座標へ移動させる
-    https://futabazemi.net/unity/click_xpos_move */
+     * オブジェクトをクリックした座標へ移動させる
+     * https://futabazemi.net/unity/click_xpos_move */
     #endregion
 
     // Start is called before the first frame update

@@ -41,13 +41,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerJump();//ジャンプ処理
-        PlayerArrowKeyMove();//矢印キー移動処理
-        PlayerClickMove();//クリック移動処理
+        PlayerJump();
+        PlayerArrowKeyMove();
+        PlayerClickMove();
     }
 
-    //各関数---------------------------------
-    //矢印キー移動処理関数
+    /// <summary>
+    /// 矢印キー移動処理
+    /// </summary>
     private void PlayerArrowKeyMove()
     {
         //右矢印キーが押された場合
@@ -65,7 +66,10 @@ public class Player : MonoBehaviour
             target_obj.transform.position = pos;//ターゲットごと動かす
         }
     }
-    //クリック移動処理関数
+
+    /// <summary>
+    /// クリック移動処理
+    /// </summary>
     private void PlayerClickMove()
     {
         //左右移動処理（マウスフラグ）
@@ -76,7 +80,10 @@ public class Player : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target_obj.transform.position, clickspeed);
         }
     }
-    //ジャンプ処理
+
+    /// <summary>
+    /// ジャンプ処理
+    /// </summary>
     private void PlayerJump()
     {
         //isGroundがtrueの場合
@@ -90,7 +97,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-    //---------------------------------------
 
 
     //当たり判定(衝突判定)-------------------
