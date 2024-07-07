@@ -8,25 +8,42 @@ public class FromAbove_Enemy : MonoBehaviour
 {
     public float enemyspeed;//落下速度
     public bool isTouch;//接触フラグ
+    public int formationflag;//生成フラグ
 
-    private Vector2 enemypos;//エネミー位置
+    private Rigidbody2D rb2d;//Rigidbody2D
+    private Vector2 enemy_pos;//エネミー位置
+
+    #region 参考サイト
+    /* 参考サイト
+     * 重力の有効化について
+     * https://qiita.com/kouheyHEY/items/d75028968a0718ca972a */
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         enemyspeed = 0.1f;//落下速度
         isTouch = false;//接触フラグ
+        formationflag = 0;//生成フラグ
+        rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
+        rb2d.isKinematic = true;//重力を一時無効化
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 0.0f);//座標の指定
     }
 
     // Update is called once per frame
     void Update()
     {
-        FromAboveEnemyMove();
+        StartCoroutine(FromAboveEnemyMove());//コルーチン開始
     }
 
-    //落下物本体
-    void FromAboveEnemyMove()
+    /// <summary>
+    /// 落下物本体動作
+    /// </summary>
+    /// <returns>敵の削除</returns>
+    private IEnumerator FromAboveEnemyMove()
     {
+        //1つ生成したら待つ
+        yield return new WaitForSeconds(8.0f);//何秒待つか
         //接触した場合
         if (isTouch)
         {
@@ -35,10 +52,38 @@ public class FromAbove_Enemy : MonoBehaviour
         }
         else
         {
+            //tremble();
+            rb2d.isKinematic = false;//重力を有効化
             //現在のエネミー位置取得
-            enemypos = transform.position;
+            enemy_pos = transform.position;
             //エネミー位置のy軸の変更
-            this.transform.position = new Vector2(enemypos.x, enemypos.y - enemyspeed);
+            this.transform.position = new Vector2(enemy_pos.x, enemy_pos.y - enemyspeed);
+        }
+    }
+
+    /// <summary>
+    /// オブジェクトが震える処理
+    /// </summary>
+    private void tremble()
+    {
+        switch(formationflag)
+        {
+            case 1:
+                goto case 3;
+            case 3:
+                this.transform.Translate(30 * Time.deltaTime, 0.0f, 0.0f);
+                if (this.transform.position.x >= 0.5f) formationflag++;
+                break;
+            case 2:
+                this.transform.Translate(30 * Time.deltaTime, 0.0f, 0.0f);
+                if (this.transform.position.x <= -0.5f) formationflag++;
+                break;
+            case 4:
+                this.transform.Translate(30 * Time.deltaTime, 0.0f, 0.0f);
+                if (this.transform.position.x <= 0.0f) formationflag = 0;
+                break;
+
+
         }
     }
 

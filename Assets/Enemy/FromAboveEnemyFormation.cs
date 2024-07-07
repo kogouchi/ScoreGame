@@ -10,16 +10,14 @@ public class FromAboveEnemyFormation : MonoBehaviour
 
     #region 参考サイト
     /* 参考サイト
-    コルーチンの使い方
-    https://umistudioblog.com/coroutinehowto/ */
+     * コルーチンの使い方
+     * https://umistudioblog.com/coroutinehowto/ */
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
-        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
-        StartCoroutine(EnemyDown());
+        StartCoroutine(EnemyDown());//コルーチン開始
     }
 
     // Update is called once per frame
@@ -28,16 +26,24 @@ public class FromAboveEnemyFormation : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// コルーチン処理
+    /// 上から落ちてくるエネミーのランダム生成
+    /// </summary>
+    /// <returns>ランダム変数</returns>
     private IEnumerator EnemyDown()
     {
-        if(rnd == 0)
+        rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+
+        if (rnd == 0)
         {
             for (int i = 0; i < 10; i++)
             {
                 //上から落ちてくるエネミーの生成
-                Instantiate(enemy_obj[0], new Vector3(-16.0f + (i * 4.0f), 8.5f, 0.0f), Quaternion.identity);
+                Instantiate(enemy_obj[0], new Vector2(-16.0f + (i * 4.0f), 8.5f), Quaternion.identity);
                 //1つ生成したら待つ
-                yield return new WaitForSeconds(1.0f);//何秒待つか
+                yield return new WaitForSeconds(0.5f);//何秒待つか
             }
         }
         else if (rnd == 1)
@@ -45,7 +51,7 @@ public class FromAboveEnemyFormation : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 //上から落ちてくるエネミーの生成
-                Instantiate(enemy_obj[0], new Vector3(16.0f - (i * 4.0f), 8.5f, 0.0f), Quaternion.identity);
+                Instantiate(enemy_obj[0], new Vector2(16.0f - (i * 4.0f), 8.5f), Quaternion.identity);
                 //1つ生成したら待つ
                 yield return new WaitForSeconds(1.0f);//何秒待つか
             }
