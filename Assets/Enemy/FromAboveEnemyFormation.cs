@@ -34,7 +34,7 @@ public class FromAboveEnemyFormation : MonoBehaviour
     private IEnumerator EnemyDown()
     {
         rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
-        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
 
         if (rnd == 0)
         {
