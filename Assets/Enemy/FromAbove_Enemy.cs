@@ -13,8 +13,7 @@ public class FromAbove_Enemy : MonoBehaviour
     private Vector2 enemy_pos;//エネミー位置
 
     #region 参考サイト
-    /* 参考サイト
-     * 重力の有効化について
+    /* 重力の有効化について
      * https://qiita.com/kouheyHEY/items/d75028968a0718ca972a */
     #endregion
 
