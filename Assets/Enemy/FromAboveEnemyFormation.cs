@@ -17,7 +17,14 @@ public class FromAboveEnemyFormation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(EnemyDown());//コルーチン開始
+        //rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        
+
+
+        //コルーチン開始
+        //StartCoroutine(EnemyDown());
+        StartCoroutine(EnemyPursue());
     }
 
     // Update is called once per frame
@@ -30,7 +37,7 @@ public class FromAboveEnemyFormation : MonoBehaviour
     /// コルーチン処理
     /// 上から落ちてくるエネミーのランダム生成
     /// </summary>
-    /// <returns>ランダム変数</returns>
+    /// <returns>生成する秒数</returns>
     private IEnumerator EnemyDown()
     {
         rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
@@ -55,6 +62,24 @@ public class FromAboveEnemyFormation : MonoBehaviour
                 //1つ生成したら待つ
                 yield return new WaitForSeconds(1.0f);//何秒待つか
             }
+        }
+    }
+
+    /// <summary>
+    /// コルーチン処理
+    /// 左右から追従してくるエネミーのランダム生成
+    /// </summary>
+    /// <returns>生成する秒数</returns>
+    private IEnumerator EnemyPursue()
+    {
+        rnd = Random.Range(0, 1);//ランダム生成(最小値, 最大値-1の値)
+        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+
+        if (rnd == 0)
+        {
+            //左右からプレイヤーの方向へ向かってくるエネミーの生成
+            Instantiate(enemy_obj[1], new Vector2(16.0f, 0.0f), Quaternion.identity);
+            yield return 0;
         }
     }
 }

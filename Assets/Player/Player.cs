@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
             isTouch = true;
         }
         //プレイヤーと追従エネミーが当たった場合→プレハブ化しエネミーを一括管理するためのち変更
-        if (collision.gameObject.name == "follow_enemy")
+        if (collision.gameObject.name == "enemymanager")
         {
             isDestroy = true;
         }

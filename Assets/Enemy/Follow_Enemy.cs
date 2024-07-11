@@ -9,8 +9,8 @@ public class Follow_Enemy : MonoBehaviour
     [SerializeField] public GameObject player_obj;//プレイヤーを取得(プレイヤーの位置を保存するため)
     
     public float enemyspeed;//落下速度
-    public bool isTouch;//接触フラグ
-    public bool isScreen;//画面フラグ
+    //public bool isTouch;//接触フラグ
+    //public bool isScreen;//画面フラグ
     
     private float rnd;//ランダム生成
 
@@ -28,8 +28,8 @@ public class Follow_Enemy : MonoBehaviour
     {
         enemyspeed = 0.1f;//エネミー速度
         //player_obj = GameObject.Find("player");//オブジェクトの取得
-        isTouch = false;
-        isScreen = false;//画面内 false
+        //isTouch = false;
+        //isScreen = false;//画面内 false
         rnd = Random.Range(-3.0f, 8.5f);//ランダム生成(最小値, 最大値-1の値)
         transform.position = new Vector2(transform.position.x, rnd);//エネミーはランダムに表示
         //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
