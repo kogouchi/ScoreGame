@@ -7,10 +7,7 @@ public class Follow_Enemy : MonoBehaviour
 {
     //インスペクター(オブジェクトがアクティブか非アクティブか見るにはインスペクターにする必要がある)
     [SerializeField] public GameObject player_obj;//プレイヤーを取得(プレイヤーの位置を保存するため)
-    
     public float enemyspeed;//落下速度
-    //public bool isTouch;//接触フラグ
-    //public bool isScreen;//画面フラグ
     
     private float rnd;//ランダム生成
 
@@ -32,7 +29,7 @@ public class Follow_Enemy : MonoBehaviour
         //isScreen = false;//画面内 false
         rnd = Random.Range(-3.0f, 8.5f);//ランダム生成(最小値, 最大値-1の値)
         transform.position = new Vector2(transform.position.x, rnd);//エネミーはランダムに表示
-        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
     }
 
     // Update is called once per frame
@@ -59,6 +56,7 @@ public class Follow_Enemy : MonoBehaviour
             //プレイヤー座標にエネミーの座標に変換
             //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
             transform.position = Vector3.MoveTowards(transform.position, player_obj.transform.position, enemyspeed);
+            Debug.Log("プレイヤー位置座標 = " + player_obj.transform.position);//プレイヤー位置位置の確認
         }
     }
 }

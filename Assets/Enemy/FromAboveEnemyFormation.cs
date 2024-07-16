@@ -60,7 +60,7 @@ public class FromAboveEnemyFormation : MonoBehaviour
                 //上から落ちてくるエネミーの生成
                 Instantiate(enemy_obj[0], new Vector2(15.0f - (i * 5.0f), 8.5f), Quaternion.identity);
                 //1つ生成したら待つ
-                yield return new WaitForSeconds(1.0f);//何秒待つか
+                yield return new WaitForSeconds(0.5f);//何秒待つか
             }
         }
     }
@@ -72,14 +72,20 @@ public class FromAboveEnemyFormation : MonoBehaviour
     /// <returns>生成する秒数</returns>
     private IEnumerator EnemyPursue()
     {
-        rnd = Random.Range(0, 1);//ランダム生成(最小値, 最大値-1の値)
+        rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
         Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
 
         if (rnd == 0)
         {
+            yield return new WaitForSeconds(0.5f);//何秒待つか
             //左右からプレイヤーの方向へ向かってくるエネミーの生成
-            Instantiate(enemy_obj[1], new Vector2(16.0f, 0.0f), Quaternion.identity);
-            yield return 0;
+            Instantiate(enemy_obj[1], new Vector2(-16.5f, 0.0f), Quaternion.identity);
+        }
+        else if (rnd == 1)
+        {
+            yield return new WaitForSeconds(0.5f);//何秒待つか
+            //左右からプレイヤーの方向へ向かってくるエネミーの生成
+            Instantiate(enemy_obj[1], new Vector2(16.5f, 0.0f), Quaternion.identity);
         }
     }
 }

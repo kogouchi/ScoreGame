@@ -30,17 +30,15 @@ public class FromAbove_Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(FromAboveEnemyMove());//コルーチン開始
+        FromAboveEnemyMove();//コルーチン開始
     }
 
     /// <summary>
     /// 落下物本体動作
     /// </summary>
     /// <returns>敵の削除</returns>
-    private IEnumerator FromAboveEnemyMove()
+    private void FromAboveEnemyMove()
     {
-        //1つ生成したら待つ
-        yield return new WaitForSeconds(1.0f);//何秒待つか
         //接触した場合
         if (isTouch)
         {
