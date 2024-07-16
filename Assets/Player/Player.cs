@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDestroy) Destroy(gameObject);//プレイヤー削除
+        if (isDestroy) Destroy(gameObject);//プレイヤー削除（現状削除されない）
 
         PlayerJump();
         PlayerArrowKeyMove();
