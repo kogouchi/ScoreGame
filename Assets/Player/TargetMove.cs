@@ -18,7 +18,8 @@ public class TargetMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //ターゲットの初期位置
+        transform.position = new Vector2(this.transform.position.x, -8.5f);
     }
 
     // Update is called once per frame

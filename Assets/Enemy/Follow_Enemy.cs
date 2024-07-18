@@ -23,13 +23,13 @@ public class Follow_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyspeed = 0.1f;//エネミー速度
+        enemyspeed = 0.05f;//エネミー速度
         //player_obj = GameObject.Find("player");//オブジェクトの取得
         //isTouch = false;
         //isScreen = false;//画面内 false
         rnd = Random.Range(-3.0f, 8.5f);//ランダム生成(最小値, 最大値-1の値)
         transform.position = new Vector2(transform.position.x, rnd);//エネミーはランダムに表示
-        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
     }
 
     // Update is called once per frame
@@ -52,11 +52,14 @@ public class Follow_Enemy : MonoBehaviour
             //Quaternion 回転を表すもの FromToRotation(開始方向, 終了方向)
             this.transform.rotation = Quaternion.FromToRotation(Vector3.up, dir);
 
+            //プレイヤーとエネミーの距離を図る→プレイヤー範囲内だった場合エネミーの追従を行わない
+
+
             //プレイヤーの位置に移動するのではなく向いた方向に移動する方が良い？
             //プレイヤー座標にエネミーの座標に変換
             //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
             transform.position = Vector3.MoveTowards(transform.position, player_obj.transform.position, enemyspeed);
-            Debug.Log("プレイヤー位置座標 = " + player_obj.transform.position);//プレイヤー位置位置の確認
+            //Debug.Log("プレイヤー位置座標 = " + player_obj.transform.position);//プレイヤー位置位置の確認
         }
     }
 }

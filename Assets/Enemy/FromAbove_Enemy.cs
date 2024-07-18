@@ -20,7 +20,7 @@ public class FromAbove_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyspeed = 0.1f;//落下速度
+        enemyspeed = 0.05f;//落下速度
         isTouch = false;//接触フラグ
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
         rb2d.isKinematic = true;//重力を一時無効化
@@ -59,7 +59,7 @@ public class FromAbove_Enemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //もし地面と衝突した場合
-        if (collision.collider.name == "ground")
+        if (collision.collider.tag == "Ground")
         {
             isTouch = true;//フラグをtrueに返す
         }
