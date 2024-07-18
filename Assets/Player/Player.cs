@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb2d;//Rigidbody2D
     private bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
-    private bool isDestroy;//プレイヤー削除
 
     #region 参考サイト
     /* オブジェクトをクリックした座標へ移動させるサイト
@@ -36,15 +35,13 @@ public class Player : MonoBehaviour
         target_obj = GameObject.Find("target");//オブジェクトの取得
         isTouch = false;//クリックしているかどうか
         isGround = false;//地面についているかどうか
-        isDestroy = false;//削除するかどうか
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
+        transform.position = new Vector2(transform.position.x, -3);//プレイヤーの初期位置
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isDestroy) Destroy(gameObject);//プレイヤー削除（現状削除されない）
-
         PlayerJump();
         PlayerArrowKeyMove();
         PlayerClickMove();
@@ -108,20 +105,20 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //プレイヤーとターゲット(クリック先オブジェクト)が当たった場合
-        if (collision.gameObject.name == "target")
+        if (collision.gameObject.tag == "Target")
         {
             isTouch = true;
         }
-        //プレイヤーと追従エネミーが当たった場合→プレハブ化しエネミーを一括管理するためのち変更
-        if (collision.gameObject.name == "enemymanager")
+        //プレイヤーと追従エネミーが当たった場合
+        if (collision.gameObject.tag == "Enemy")
         {
-            isDestroy = true;
+            Destroy(gameObject);//プレイヤー削除→現状削除されない
         }
     }
     //OnCollisionStay2D=衝突中毎フレーム呼ばれる
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isGround = true;
         }
@@ -129,7 +126,7 @@ public class Player : MonoBehaviour
     //OnCollisionExit2D=衝突していた状態から離れたタイミングで呼ばれる
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isGround = false;
         }
