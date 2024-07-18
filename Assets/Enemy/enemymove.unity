@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 941232804}
   - component: {fileID: 941232803}
   m_Layer: 0
-  m_Name: enemymanager
+  m_Name: EnemyData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,6 +247,10 @@ PrefabInstance:
     - target: {fileID: 920751814588025443, guid: 9b8f7391bbddf23489ec692071ea966f, type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 920751814588025443, guid: 9b8f7391bbddf23489ec692071ea966f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 920751814588025443, guid: 9b8f7391bbddf23489ec692071ea966f, type: 3}
       propertyPath: m_TagString
@@ -444,6 +448,10 @@ PrefabInstance:
     - target: {fileID: 3296208956765027396, guid: 996df322e5c308546992cb2c9b7912e3, type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030970728903550343, guid: 996df322e5c308546992cb2c9b7912e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7531713007289808239, guid: 996df322e5c308546992cb2c9b7912e3, type: 3}
       propertyPath: m_Name

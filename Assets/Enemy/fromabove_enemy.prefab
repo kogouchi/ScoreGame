@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7916047523479151637}
   - component: {fileID: 487364884490385735}
-  - component: {fileID: 8537438672666457259}
   - component: {fileID: 5951313247258985097}
   - component: {fileID: 6863139972012613649}
+  - component: {fileID: 8537438672666457259}
   m_Layer: 0
   m_Name: fromabove_enemy
   m_TagString: Enemy
@@ -87,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8537438672666457259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8339662962225839967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82acad43f776a8b45804a2050e1374b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyspeed: 0
-  isTouch: 0
 --- !u!50 &5951313247258985097
 Rigidbody2D:
   serializedVersion: 4
@@ -176,3 +162,17 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &8537438672666457259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8339662962225839967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82acad43f776a8b45804a2050e1374b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyspeed: 0
+  isTouch: 0
