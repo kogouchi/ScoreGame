@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     public float keyspeed;//プレイヤーがキーで移動する
     public float jumppower;//ジャンプ力
     public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
-    
+
     private Rigidbody2D rb2d;//Rigidbody2D
     private bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
+    private bool isDestroy;//プレイヤー削除
 
     #region 参考サイト
     /* オブジェクトをクリックした座標へ移動させるサイト
@@ -32,15 +33,18 @@ public class Player : MonoBehaviour
         clickspeed = 0.05f;//移動速度
         keyspeed = 0.1f;
         jumppower = 800.0f;//ジャンプの高さ
-        target_obj = GameObject.Find("target");
+        target_obj = GameObject.Find("target");//オブジェクトの取得
         isTouch = false;//クリックしているかどうか
         isGround = false;//地面についているかどうか
+        isDestroy = false;//削除するかどうか
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDestroy) Destroy(gameObject);//プレイヤー削除（現状削除されない）
+
         PlayerJump();
         PlayerArrowKeyMove();
         PlayerClickMove();
@@ -107,6 +111,11 @@ public class Player : MonoBehaviour
         if (collision.gameObject.name == "target")
         {
             isTouch = true;
+        }
+        //プレイヤーと追従エネミーが当たった場合→プレハブ化しエネミーを一括管理するためのち変更
+        if (collision.gameObject.name == "enemymanager")
+        {
+            isDestroy = true;
         }
     }
     //OnCollisionStay2D=衝突中毎フレーム呼ばれる

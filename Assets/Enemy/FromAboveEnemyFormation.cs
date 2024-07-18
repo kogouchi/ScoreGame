@@ -17,7 +17,14 @@ public class FromAboveEnemyFormation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(EnemyDown());//コルーチン開始
+        //rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        
+
+
+        //コルーチン開始
+        //StartCoroutine(EnemyDown());
+        StartCoroutine(EnemyPursue());
     }
 
     // Update is called once per frame
@@ -30,31 +37,55 @@ public class FromAboveEnemyFormation : MonoBehaviour
     /// コルーチン処理
     /// 上から落ちてくるエネミーのランダム生成
     /// </summary>
-    /// <returns>ランダム変数</returns>
+    /// <returns>生成する秒数</returns>
     private IEnumerator EnemyDown()
     {
         rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
-        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
 
         if (rnd == 0)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i <= 6; i++)
             {
                 //上から落ちてくるエネミーの生成
-                Instantiate(enemy_obj[0], new Vector2(-16.0f + (i * 4.0f), 8.5f), Quaternion.identity);
+                Instantiate(enemy_obj[0], new Vector2(-15.0f + (i * 5.0f), 8.5f), Quaternion.identity);
                 //1つ生成したら待つ
                 yield return new WaitForSeconds(0.5f);//何秒待つか
             }
         }
         else if (rnd == 1)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i <= 6; i++)
             {
                 //上から落ちてくるエネミーの生成
-                Instantiate(enemy_obj[0], new Vector2(16.0f - (i * 4.0f), 8.5f), Quaternion.identity);
+                Instantiate(enemy_obj[0], new Vector2(15.0f - (i * 5.0f), 8.5f), Quaternion.identity);
                 //1つ生成したら待つ
-                yield return new WaitForSeconds(1.0f);//何秒待つか
+                yield return new WaitForSeconds(0.5f);//何秒待つか
             }
+        }
+    }
+
+    /// <summary>
+    /// コルーチン処理
+    /// 左右から追従してくるエネミーのランダム生成
+    /// </summary>
+    /// <returns>生成する秒数</returns>
+    private IEnumerator EnemyPursue()
+    {
+        rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+
+        if (rnd == 0)
+        {
+            yield return new WaitForSeconds(0.5f);//何秒待つか
+            //左右からプレイヤーの方向へ向かってくるエネミーの生成
+            Instantiate(enemy_obj[1], new Vector2(-16.5f, 0.0f), Quaternion.identity);
+        }
+        else if (rnd == 1)
+        {
+            yield return new WaitForSeconds(0.5f);//何秒待つか
+            //左右からプレイヤーの方向へ向かってくるエネミーの生成
+            Instantiate(enemy_obj[1], new Vector2(16.5f, 0.0f), Quaternion.identity);
         }
     }
 }
