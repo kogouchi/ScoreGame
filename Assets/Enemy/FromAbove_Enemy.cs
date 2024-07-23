@@ -11,6 +11,7 @@ public class FromAbove_Enemy : MonoBehaviour
 
     private Rigidbody2D rb2d;//Rigidbody2D
     private Vector2 enemy_pos;//エネミー位置
+    private Animator anim;//animatorを変数で定義
 
     #region 参考サイト
     /* 重力の有効化について
@@ -25,6 +26,7 @@ public class FromAbove_Enemy : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
         rb2d.isKinematic = true;//重力を一時無効化
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0.0f);//座標の指定
+        anim = gameObject.GetComponent<Animator>();//animatorコンポーネントを設定
     }
 
     // Update is called once per frame
@@ -47,12 +49,28 @@ public class FromAbove_Enemy : MonoBehaviour
         }
         else
         {
+            //anim.SetBool("start_enemy", true);//アニメーションの再生
+
             rb2d.isKinematic = false;//重力を有効化
             //現在のエネミー位置取得
             enemy_pos = transform.position;
             //エネミー位置のy軸の変更
             this.transform.position = new Vector2(enemy_pos.x, enemy_pos.y - enemyspeed);
         }
+    }
+
+    /// <summary>
+    /// エネミーアニメーション
+    /// </summary>
+    void EnemyStartAni()
+    {
+        Vector3 pos = transform.position;
+        pos.x++;
+    }
+    void EnemyEndAni()
+    {
+        Vector3 pos = transform.position;
+        pos.x--;
     }
 
     //地面との衝突判定
