@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;//シーン変更処理を使用
 
 public class Count_Up : MonoBehaviour
 {
@@ -34,8 +35,11 @@ public class Count_Up : MonoBehaviour
 
         if(!player_obj)
         {
-            timeText.text = "" + countup.ToString("f2") + "";
+            timeText.text = "" + countup.ToString("f1") + "";
             isGameOver = true;
+
+            SceneManager.LoadScene("ScoreScene");
+            Debug.Log("スコアシーンに切り替え");
         }
     }
 }
