@@ -8,7 +8,8 @@ public class FromAbove_Enemy : MonoBehaviour
 {
     public float enemyspeed;//落下速度
     public bool isTouch;//接触フラグ
-
+    
+    private Animator animator;//アニメーションの取得
     private Rigidbody2D rb2d;//Rigidbody2D
     private Vector2 enemy_pos;//エネミー位置
 
@@ -25,20 +26,26 @@ public class FromAbove_Enemy : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
         rb2d.isKinematic = true;//重力を一時無効化
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0.0f);//座標の指定
+        animator = gameObject.GetComponent<Animator>();//animatorコンポーネントを設定
     }
 
     // Update is called once per frame
     void Update()
     {
-        FromAboveEnemyMove();//コルーチン開始
+        //EnmeyAni();//アニメーション処理
+
+        //コルーチン開始
+        StartCoroutine(FromAboveEnemyMove());
     }
 
     /// <summary>
     /// 落下物本体動作
     /// </summary>
     /// <returns>敵の削除</returns>
-    private void FromAboveEnemyMove()
+    private IEnumerator FromAboveEnemyMove()
     {
+        yield return 0;
+
         //接触した場合
         if (isTouch)
         {
@@ -47,6 +54,10 @@ public class FromAbove_Enemy : MonoBehaviour
         }
         else
         {
+            animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
+            //animator.SetBool("boolEntry", false);//bool型のパラメータであるboolPosをTrueに変更
+            Debug.Log("アニメーション終了");
+
             rb2d.isKinematic = false;//重力を有効化
             //現在のエネミー位置取得
             enemy_pos = transform.position;
@@ -54,6 +65,15 @@ public class FromAbove_Enemy : MonoBehaviour
             this.transform.position = new Vector2(enemy_pos.x, enemy_pos.y - enemyspeed);
         }
     }
+
+    /// <summary>
+    /// エネミーアニメーション動作
+    /// </summary>
+    //private void EnmeyAni()
+    //{
+    //    animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
+    //    Debug.Log("アニメーション処理中");
+    //}
 
     //地面との衝突判定
     private void OnCollisionEnter2D(Collision2D collision)
