@@ -16,6 +16,8 @@ public class FromAbove_Enemy : MonoBehaviour
     #region 参考サイト
     /* 重力の有効化について
      * https://qiita.com/kouheyHEY/items/d75028968a0718ca972a */
+    /* キーフレームアニメーション
+     * https://docs.unity3d.com/ja/2022.3/Manual/animeditor-AnimatingAGameObject.html */
     #endregion
 
     // Start is called before the first frame update
@@ -32,10 +34,10 @@ public class FromAbove_Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //EnmeyAni();//アニメーション処理
+        EnmeyAni();//アニメーション処理
 
         //コルーチン開始
-        StartCoroutine(FromAboveEnemyMove());
+        //StartCoroutine(FromAboveEnemyMove());
     }
 
     /// <summary>
@@ -43,21 +45,16 @@ public class FromAbove_Enemy : MonoBehaviour
     /// </summary>
     /// <returns>敵の削除</returns>
     private IEnumerator FromAboveEnemyMove()
-    {
-        yield return 0;
-
+    {        
         //接触した場合
         if (isTouch)
         {
             enemyspeed = 0.0f;//エネミーを停止させる
             Destroy(gameObject, 1.0f);//エネミー削除
+            yield return 0;
         }
         else
         {
-            animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
-            //animator.SetBool("boolEntry", false);//bool型のパラメータであるboolPosをTrueに変更
-            Debug.Log("アニメーション終了");
-
             rb2d.isKinematic = false;//重力を有効化
             //現在のエネミー位置取得
             enemy_pos = transform.position;
@@ -69,11 +66,11 @@ public class FromAbove_Enemy : MonoBehaviour
     /// <summary>
     /// エネミーアニメーション動作
     /// </summary>
-    //private void EnmeyAni()
-    //{
-    //    animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
-    //    Debug.Log("アニメーション処理中");
-    //}
+    private void EnmeyAni()
+    {
+        animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
+        Debug.Log("アニメーション処理中");
+    }
 
     //地面との衝突判定
     private void OnCollisionEnter2D(Collision2D collision)
