@@ -18,12 +18,12 @@ public class FromAboveEnemyFormation : MonoBehaviour
     void Start()
     {
         //startで配列の中からランダムに呼び出すようにする→コルーチン開始
-        rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        //rnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
         //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
 
-        //コルーチン開始(一つずつ出現させる)
-        if(rnd == 0) StartCoroutine(EnemyDown());
-        else if(rnd == 1) StartCoroutine(EnemyPursue());
+        //コルーチン開始
+        StartCoroutine(EnemyDown());
+        //StartCoroutine(EnemyPursue());
     }
 
     // Update is called once per frame

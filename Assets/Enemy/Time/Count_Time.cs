@@ -28,13 +28,13 @@ public class Count_Up : MonoBehaviour
         else
         {
             countup += Time.deltaTime;//時間をカウント
-            //ToString→書式設定。標準書式 f = 小数型。最後に数字を書くと小数の桁分表示
+            //ToString→書式設定。標準書式 f = 小数型
             timeText.text = countup.ToString("f1");//時間を表示
         }
 
         if(!player_obj)
         {
-            timeText.text = "" + countup.ToString("f1") + "";
+            timeText.text = "" + countup.ToString("f2") + "";
             isGameOver = true;
         }
     }
