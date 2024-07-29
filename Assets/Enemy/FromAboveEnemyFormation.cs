@@ -44,23 +44,31 @@ public class FromAboveEnemyFormation : MonoBehaviour
 
         if (rnd == 0)
         {
-            for (int i = 0; i <= 6; i++)
-            {
-                //上から落ちてくるエネミーの生成
-                Instantiate(enemy_obj[0], new Vector2(-15.0f + (i * 5.0f), 8.5f), Quaternion.identity);
-                //1つ生成したら待つ
-                yield return new WaitForSeconds(1.0f);//何秒待つか
-            }
+            //上から落ちてくるエネミーの生成
+            Instantiate(enemy_obj[0], new Vector2(0.0f, 0.0f), Quaternion.identity);
+            yield return 0;
+
+            //for (int i = 0; i <= 6; i++)
+            //{
+            //    //上から落ちてくるエネミーの生成
+            //    Instantiate(enemy_obj[0], new Vector2(-15.0f + (i * 5.0f), 8.5f), Quaternion.identity);
+            //    //1つ生成したら待つ
+            //    yield return new WaitForSeconds(1.0f);//何秒待つか
+            //}
         }
         else if (rnd == 1)
         {
-            for (int i = 0; i <= 6; i++)
-            {
-                //上から落ちてくるエネミーの生成
-                Instantiate(enemy_obj[0], new Vector2(15.0f - (i * 5.0f), 8.5f), Quaternion.identity);
-                //1つ生成したら待つ
-                yield return new WaitForSeconds(1.0f);//何秒待つか
-            }
+            //上から落ちてくるエネミーの生成
+            Instantiate(enemy_obj[0], new Vector2(0.0f, 0.0f), Quaternion.identity);
+            yield return 0;
+
+            //for (int i = 0; i <= 6; i++)
+            //{
+            //    //上から落ちてくるエネミーの生成
+            //    Instantiate(enemy_obj[0], new Vector2(15.0f - (i * 5.0f), 8.5f), Quaternion.identity);
+            //    //1つ生成したら待つ
+            //    yield return new WaitForSeconds(1.0f);//何秒待つか
+            //}
         }
     }
 

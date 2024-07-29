@@ -8,6 +8,7 @@ public class FromAbove_Enemy : MonoBehaviour
 {
     public float enemyspeed;//落下速度
     public bool isTouch;//接触フラグ
+    public bool isAnimation;//アニメーションフラグ
     
     private Animator animator;//アニメーションの取得
     private Rigidbody2D rb2d;//Rigidbody2D
@@ -25,8 +26,9 @@ public class FromAbove_Enemy : MonoBehaviour
     {
         enemyspeed = 0.05f;//落下速度
         isTouch = false;//接触フラグ
+        isAnimation = false;//アニメーションフラグ
         rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
-        rb2d.isKinematic = true;//重力を一時無効化
+        //rb2d.isKinematic = true;//重力を一時無効化
         rb2d.velocity = new Vector2(rb2d.velocity.x, 0.0f);//座標の指定
         animator = gameObject.GetComponent<Animator>();//animatorコンポーネントを設定
     }
@@ -34,42 +36,27 @@ public class FromAbove_Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EnmeyAni();//アニメーション処理
-
-        //コルーチン開始
-        //StartCoroutine(FromAboveEnemyMove());
+        FromAboveEnemyMove();
     }
 
     /// <summary>
     /// 落下物本体動作
     /// </summary>
     /// <returns>敵の削除</returns>
-    private IEnumerator FromAboveEnemyMove()
-    {        
+    private void FromAboveEnemyMove()
+    {
         //接触した場合
-        if (isTouch)
+        if (isTouch && isAnimation)
         {
             enemyspeed = 0.0f;//エネミーを停止させる
-            Destroy(gameObject, 1.0f);//エネミー削除
-            yield return 0;
+            if (gameObject) Destroy(gameObject, 0.5f);//エネミー削除
         }
         else
         {
-            rb2d.isKinematic = false;//重力を有効化
-            //現在のエネミー位置取得
-            enemy_pos = transform.position;
-            //エネミー位置のy軸の変更
-            this.transform.position = new Vector2(enemy_pos.x, enemy_pos.y - enemyspeed);
+            animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
+            //Debug.Log("アニメーション処理中");
+            isAnimation = true;
         }
-    }
-
-    /// <summary>
-    /// エネミーアニメーション動作
-    /// </summary>
-    private void EnmeyAni()
-    {
-        animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
-        Debug.Log("アニメーション処理中");
     }
 
     //地面との衝突判定
