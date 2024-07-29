@@ -53,11 +53,21 @@ public class FromAbove_Enemy : MonoBehaviour
         }
         else
         {
+            gameObject.transform.localPosition = new Vector2(6.0f, 8.4f);
             animator.SetBool("boolPos", true);//bool型のパラメータであるboolPosをTrueに変更
             //Debug.Log("アニメーション処理中");
             isAnimation = true;
         }
     }
+
+    /// <summary>
+    /// アニメーションオブジェクト位置の処理
+    /// </summary>
+    /// <param name="layerIndex"></param>
+    //private void OnAnimatorIK(int layerIndex)
+    //{
+    //    animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
+    //}
 
     //地面との衝突判定
     private void OnCollisionEnter2D(Collision2D collision)

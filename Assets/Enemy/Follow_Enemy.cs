@@ -47,7 +47,7 @@ public class Follow_Enemy : MonoBehaviour
         //プレイヤーがアクティブの場合
         if(player_obj)
         {
-            if (transform.position.y > -5.0f)
+            if (transform.position.y > -6.0f)
             {
                 //プレイヤー座標にエネミーの座標に変換
                 //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
