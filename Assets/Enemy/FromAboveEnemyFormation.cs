@@ -22,8 +22,8 @@ public class FromAboveEnemyFormation : MonoBehaviour
         //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
 
         //コルーチン開始
-        //StartCoroutine(EnemyDown());
-        StartCoroutine(EnemyPursue());
+        StartCoroutine(EnemyDown());
+        //StartCoroutine(EnemyPursue());
     }
 
     // Update is called once per frame
