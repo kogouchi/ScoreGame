@@ -8,8 +8,10 @@ public class Follow_Enemy : MonoBehaviour
     //インスペクター(オブジェクトがアクティブか非アクティブか見るにはインスペクターにする必要がある)
     [SerializeField] public GameObject player_obj;//プレイヤーを取得(プレイヤーの位置を保存するため)
     public float enemyspeed;//落下速度
-    
-    private float rnd;//ランダム生成
+    public bool isTouch;//接触フラグ
+
+    private int Xrnd;//ランダム生成X軸
+    private float Yrnd;//ランダム生成Y軸
 
     #region 参考サイト
     /* オブジェクトアクティブ、非アクティブの状態を調べる
@@ -25,11 +27,20 @@ public class Follow_Enemy : MonoBehaviour
     {
         enemyspeed = 0.05f;//エネミー速度
         //player_obj = GameObject.Find("player");//オブジェクトの取得
-        //isTouch = false;
+        isTouch = false;//接触フラグ
         //isScreen = false;//画面内 false
-        rnd = Random.Range(-3.0f, 8.5f);//ランダム生成(最小値, 最大値-1の値)
-        transform.position = new Vector2(transform.position.x, rnd);//エネミーはランダムに表示
-        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        Xrnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        Yrnd = Random.Range(-0.0f, 9.5f);//ランダム生成(最小値, 最大値-1の値)
+        if(Xrnd == 0)
+        {
+            transform.position = new Vector2(-16, Yrnd);//エネミーはランダムに表示
+            //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        }
+        if(Xrnd == 1)
+        {
+            transform.position = new Vector2(16, Yrnd);//エネミーはランダムに表示
+            //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        }
     }
 
     // Update is called once per frame
@@ -46,20 +57,24 @@ public class Follow_Enemy : MonoBehaviour
         //プレイヤーがアクティブの場合
         if(player_obj)
         {
-            //向きたい方向を計算(プレイヤー位置 - オブジェクト位置)
-            Vector3 dir = (player_obj.transform.position - gameObject.transform.position);
-            //プレイヤーに追従するエネミーの向きを回転
-            //Quaternion 回転を表すもの FromToRotation(開始方向, 終了方向)
-            this.transform.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+            if (transform.position.y > -7.0f)
+            {
+                //プレイヤー座標にエネミーの座標に変換
+                //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
+                transform.position = Vector3.MoveTowards(transform.position, player_obj.transform.position, enemyspeed);
+            }
+        }
+        //接触フラグが真になった場合
+        if(isTouch) Destroy(gameObject, 1.5f);
+    }
 
-            //プレイヤーとエネミーの距離を図る→プレイヤー範囲内だった場合エネミーの追従を行わない
-
-
-            //プレイヤーの位置に移動するのではなく向いた方向に移動する方が良い？
-            //プレイヤー座標にエネミーの座標に変換
-            //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
-            transform.position = Vector3.MoveTowards(transform.position, player_obj.transform.position, enemyspeed);
-            //Debug.Log("プレイヤー位置座標 = " + player_obj.transform.position);//プレイヤー位置位置の確認
+    //地面との衝突判定
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //もし地面と衝突した場合
+        if (collision.collider.tag == "Ground")
+        {
+            isTouch = true;//フラグをtrueに返す
         }
     }
 }
