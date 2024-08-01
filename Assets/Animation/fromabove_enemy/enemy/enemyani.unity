@@ -582,6 +582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAniData
       objectReference: {fileID: 0}
+    - target: {fileID: 3036858445351808042, guid: 6730342e04891c14887b4a57ed1ef5b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

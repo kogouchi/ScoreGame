@@ -10,7 +10,8 @@ public class Follow_Enemy : MonoBehaviour
     public float enemyspeed;//落下速度
     public bool isTouch;//接触フラグ
 
-    private float rnd;//ランダム生成
+    private int Xrnd;//ランダム生成X軸
+    private float Yrnd;//ランダム生成Y軸
 
     #region 参考サイト
     /* オブジェクトアクティブ、非アクティブの状態を調べる
@@ -28,9 +29,18 @@ public class Follow_Enemy : MonoBehaviour
         //player_obj = GameObject.Find("player");//オブジェクトの取得
         isTouch = false;//接触フラグ
         //isScreen = false;//画面内 false
-        rnd = Random.Range(-3.0f, 8.5f);//ランダム生成(最小値, 最大値-1の値)
-        transform.position = new Vector2(transform.position.x, rnd);//エネミーはランダムに表示
-        //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        Xrnd = Random.Range(0, 2);//ランダム生成(最小値, 最大値-1の値)
+        Yrnd = Random.Range(-0.0f, 9.5f);//ランダム生成(最小値, 最大値-1の値)
+        if(Xrnd == 0)
+        {
+            transform.position = new Vector2(-16, Yrnd);//エネミーはランダムに表示
+            //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        }
+        if(Xrnd == 1)
+        {
+            transform.position = new Vector2(16, Yrnd);//エネミーはランダムに表示
+            //Debug.Log("ランダム値 = " + rnd);//ランダム生成値の確認
+        }
     }
 
     // Update is called once per frame
@@ -47,7 +57,7 @@ public class Follow_Enemy : MonoBehaviour
         //プレイヤーがアクティブの場合
         if(player_obj)
         {
-            if (transform.position.y > -6.0f)
+            if (transform.position.y > -7.0f)
             {
                 //プレイヤー座標にエネミーの座標に変換
                 //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
@@ -55,10 +65,7 @@ public class Follow_Enemy : MonoBehaviour
             }
         }
         //接触フラグが真になった場合
-        if(isTouch)
-        {
-            Destroy(gameObject, 1.0f);
-        }
+        if(isTouch) Destroy(gameObject, 1.5f);
     }
 
     //地面との衝突判定
