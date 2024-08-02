@@ -11,7 +11,7 @@ public class BounceEnemyData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(BounceData());//コルーチン開始
     }
 
     // Update is called once per frame
