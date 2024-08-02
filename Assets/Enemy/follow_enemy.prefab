@@ -174,5 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcbf04a37c05b54990be16b9d31854e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_obj: {fileID: 7110995738224995338, guid: d31e1e543a75a80419064556636389c3, type: 3}
+  player_obj: {fileID: 0}
   enemyspeed: 0
+  isTouch: 0
