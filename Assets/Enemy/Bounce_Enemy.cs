@@ -7,7 +7,7 @@ using UnityEngine;
 //＋制限時間が長くなっていくほど増やしていく？
 public class Bounce_Enemy : MonoBehaviour
 {
-    public float speed = 5.0f;
+    public float speed = 10.0f;
     new Rigidbody2D rigidbody;
 
     #region 参考サイト

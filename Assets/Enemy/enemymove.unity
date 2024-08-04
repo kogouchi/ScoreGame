@@ -189,7 +189,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13836a7e8ca95a4b84406f3623094e8, type: 3}
---- !u!1001 &1328569359
+--- !u!1001 &1131036214
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -203,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4830348452982990064, guid: 92cb441b12a0d4d42a6480e472c6f414, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.83
+      value: 8.35
       objectReference: {fileID: 0}
     - target: {fileID: 4830348452982990064, guid: 92cb441b12a0d4d42a6480e472c6f414, type: 3}
       propertyPath: m_LocalPosition.z
@@ -244,10 +244,6 @@ PrefabInstance:
     - target: {fileID: 5364111751988885509, guid: 92cb441b12a0d4d42a6480e472c6f414, type: 3}
       propertyPath: m_Name
       value: follow_enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5364111751988885509, guid: 92cb441b12a0d4d42a6480e472c6f414, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -590,6 +586,10 @@ PrefabInstance:
       propertyPath: player_obj
       value: 
       objectReference: {fileID: 920751816077996985}
+    - target: {fileID: 8935069424947661702, guid: 830b6de9b00fe9344bbb634d8201b4fd, type: 3}
+      propertyPath: bounceEnemy_obj
+      value: 
+      objectReference: {fileID: 8174460524378619569, guid: b4834bae5f7e1c342bbfdb3f1a1125c9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -666,4 +666,4 @@ SceneRoots:
   - {fileID: 306320404}
   - {fileID: 3834307162836950064}
   - {fileID: 1575296009}
-  - {fileID: 1328569359}
+  - {fileID: 1131036214}

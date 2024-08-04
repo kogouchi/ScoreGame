@@ -18,7 +18,7 @@ public class BounceEnemyData : MonoBehaviour
     void Update()
     {
         //制限時間が1すぎた場合1つ生成
-        bCount = count_time.CountUP;//プロパティの取得
+        //bCount = count_time.CountUP;//プロパティの取得
         Debug.Log(bCount);//ログで確認
 
         //if(bCount)
