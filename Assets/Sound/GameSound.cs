@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;//シーン切り替え時使用
 public class GameSound : MonoBehaviour
 {
     [SerializeField] public AudioSource[] audios;//オーディオソース型
-    //[SerializeField] public Object[] audioClips;//BGMデータ
-    
+    public int rndmin;//最小乱数
+    public int rndmax;//最大乱数
+
     private int rnd;//ランダム変数
     private bool isPlay;//再生フラグ
 
@@ -19,6 +20,8 @@ public class GameSound : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rndmin = 0;//最小乱数
+        rndmax = 0;//最大乱数
         isPlay = false;//再生フラグ
         RndSound();//BGM再生
     }
@@ -32,10 +35,15 @@ public class GameSound : MonoBehaviour
     /// <summary>
     /// BGM再生
     /// </summary>
-    private void RndSound()
+    public void RndSound()
     {
-        rnd = Random.Range(0, 5);//ランダム生成(最小値, 最大値-1の値)
-        for(int i = 0; i < 5; i++)
+        //現在がタイトルシーンの場合
+        if (SceneManager.GetActiveScene().name == "TitleScene") rndmax = 2;
+        //現在がゲームシーンの場合
+        if (SceneManager.GetActiveScene().name == "GameScene") rndmax = 5;
+
+        rnd = Random.Range(rndmin, rndmax);//ランダム生成(最小値, 最大値-1の値)
+        for(int i = 0; i < rndmax; i++)
         {
             if (rnd == i)
             {
@@ -52,6 +60,14 @@ public class GameSound : MonoBehaviour
     /// </summary>
     public void GamePlay()
     {
+        //現在がタイトルシーンの場合
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            //Escapeが押された場合（デバッグ用）
+            if (Input.GetKeyDown(KeyCode.Escape))
+                SceneManager.LoadScene("TitleScene");//タイトルシーン切り替え
+        }
+
         //現在がゲームシーンの場合
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
@@ -60,14 +76,14 @@ public class GameSound : MonoBehaviour
                 SceneManager.LoadScene("GameScene");//ゲームシーン切り替え
                                                     //Eキーが押された場合（デバッグ用）
             if (Input.GetKeyDown(KeyCode.E))
-                game_end();
+                GameEnd();
             //Escapeが押された場合（デバッグ用）
             if (Input.GetKeyDown(KeyCode.Escape))
                 SceneManager.LoadScene("TitleScene");//タイトルシーン切り替え
         }
     }
 
-    private void game_end()
+    private void GameEnd()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;//ゲーム終了
