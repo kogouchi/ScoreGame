@@ -19,14 +19,22 @@ public class TargetMove : MonoBehaviour
     void Start()
     {
         //ターゲットの初期位置
-        transform.position = new Vector2(this.transform.position.x, -8.5f);
+        transform.position = new Vector2(transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
+        TargetPosition();
+    }
+
+    /// <summary>
+    /// ターゲット位置処理
+    /// </summary>
+    public void TargetPosition()
+    {
         //マウス左クリックが押された場合
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             mouse_pos = Input.mousePosition;//マウスの座標を取得
             //Debug.Log("現在のマウス座標=" + mouse_pos);//マウス位置確認
