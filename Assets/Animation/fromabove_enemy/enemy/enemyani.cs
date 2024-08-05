@@ -30,7 +30,7 @@ public class enemyani : MonoBehaviour
             for (int i = 0; i <= 6; i++)
             {
                 Instantiate(enemy_obj[i], new Vector2(0.0f, 0.0f), Quaternion.identity);
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(1.5f);
             }
         }
         else
