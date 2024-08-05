@@ -24,9 +24,9 @@ public class Count_Time : MonoBehaviour
     {
         isGameOver = false;//ゲームが続いている状態
         //Bounce_Enemyを1.0f秒後に呼び出し、以降は10,0f秒毎に実行
-        InvokeRepeating(nameof(BounceEnemyGenerate), 2.0f, 20.0f);
+        InvokeRepeating(nameof(BounceEnemyGenerate), 1.0f, 10.0f);
         //Fromabove_Enemyを5.0f秒後に呼び出し、以降は8.0f秒後に実行
-        InvokeRepeating(nameof(FromaboveEnemyGenerate), 1.0f, 12.0f);
+        InvokeRepeating(nameof(FromaboveEnemyGenerate), 4.0f, 16.0f);
     }
 
     // Update is called once per frame
@@ -55,10 +55,10 @@ public class Count_Time : MonoBehaviour
     /// </summary>
     void BounceEnemyGenerate()
     {
-        x_rnd = Random.Range(-5, 5);
-        y_rnd = Random.Range(-5, 5);
+        x_rnd = Random.Range(-12, 12);
+        y_rnd = Random.Range(-12, 12);
 
-        Instantiate(enemy_obj[0], transform.position, Quaternion.identity);
+        Instantiate(enemy_obj[0], new Vector2(x_rnd, y_rnd), Quaternion.identity);
     }
 
     /// <summary>
