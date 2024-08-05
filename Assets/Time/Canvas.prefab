@@ -227,4 +227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_obj: {fileID: 0}
+  enemy_obj:
+  - {fileID: 8174460524378619569, guid: b4834bae5f7e1c342bbfdb3f1a1125c9, type: 3}
+  - {fileID: 3036858445351808042, guid: 6730342e04891c14887b4a57ed1ef5b8, type: 3}
   timeText: {fileID: 6120792028099818887}
+  countup: 0
