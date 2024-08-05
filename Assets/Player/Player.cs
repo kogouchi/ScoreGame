@@ -8,14 +8,16 @@ using UnityEngine;
 //プレイヤーRigidbody2D「Constraints」の「z」をチェックを外す
 public class Player : MonoBehaviour
 {
-    public GameObject target_obj;//ターゲット(クリック先オブジェクト)を取得
+    [SerializeField] public GameObject target_obj;//ターゲット(クリック先オブジェクト)を取得
+    [SerializeField] public Rigidbody2D rb2d;//Rigidbody2D
+    [SerializeField] public Collider2D co2d;//Collider2D
+
+    public bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
     public float clickspeed;//プレイヤーがターゲットに移動するスピード
     public float keyspeed;//プレイヤーがキーで移動する
     public float jumppower;//ジャンプ力
     public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
 
-    private Rigidbody2D rb2d;//Rigidbody2D
-    private bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
 
     #region 参考サイト
     /* オブジェクトをクリックした座標へ移動させるサイト
@@ -30,12 +32,14 @@ public class Player : MonoBehaviour
     void Start()
     {
         clickspeed = 0.05f;//移動速度
-        keyspeed = 0.1f;
-        jumppower = 800.0f;//ジャンプの高さ
+        keyspeed = 1.0f;
+        jumppower = 600.0f;//ジャンプの高さ
         target_obj = GameObject.Find("target");//オブジェクトの取得
         isTouch = false;//クリックしているかどうか
         isGround = false;//地面についているかどうか
-        rb2d = this.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
+        rb2d = GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
+        co2d = GetComponent<Collider2D>();//Collider2Dの取得
+        co2d.isTrigger = true;
         transform.position = new Vector2(transform.position.x, -3);//プレイヤーの初期位置
     }
 
@@ -56,14 +60,14 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             Vector2 pos = transform.position;//現在の位置情報取得
-            pos.x += 0.05f;
+            pos.x += keyspeed;
             target_obj.transform.position = pos;//ターゲットごと動かす
         }
         //左矢印キーが押された場合
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             Vector2 pos = transform.position;//現在の位置情報取得
-            pos.x -= 0.05f;
+            pos.x -= keyspeed;
             target_obj.transform.position = pos;//ターゲットごと動かす
         }
     }
@@ -93,9 +97,12 @@ public class Player : MonoBehaviour
             //スペースキーが押された場合
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //Debug.Log("ジャンプした");
-                rb2d.AddForce(transform.up * jumppower);//AddForce() 力を加える
+                co2d.isTrigger = false;
+                rb2d.AddForce(target_obj.transform.up * jumppower);//AddForce() 力を加える + ターゲットごと動かす
+                Debug.Log("ジャンプした");
             }
+
+            co2d.isTrigger = true;
         }
     }
 
@@ -112,7 +119,7 @@ public class Player : MonoBehaviour
         //プレイヤーと追従エネミーが当たった場合
         if (collision.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject);//プレイヤー削除→現状削除されない
+            Destroy(gameObject);//プレイヤー削除
         }
     }
     //OnCollisionStay2D=衝突中毎フレーム呼ばれる

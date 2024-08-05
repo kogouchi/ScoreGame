@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;//シーン切り替え時使用
 public class GameSound : MonoBehaviour
 {
     [SerializeField] public AudioSource[] audios;//オーディオソース型
-    public int rndmin;//最小乱数
-    public int rndmax;//最大乱数
 
+    private int rndmin;//最小乱数
+    private int rndmax;//最大乱数
     private int rnd;//ランダム変数
     private bool isPlay;//再生フラグ
 
