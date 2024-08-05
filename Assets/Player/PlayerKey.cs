@@ -53,6 +53,16 @@ public class PlayerKey : MonoBehaviour
         rb2d.velocity = velocity;//計算した移動速度ベクトルをrb2dに反映
     }
 
+    //当たり判定(衝突判定)-------------------
+    //OnCollisionEnter2D=接触した時のみ呼び出される
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //プレイヤーと追従エネミーが当たった場合
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);//プレイヤー削除
+        }
+    }
     //OnCollisionStay2D=衝突中毎フレーム呼ばれる
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -69,5 +79,5 @@ public class PlayerKey : MonoBehaviour
             isGround = false;
         }
     }
-
+    //---------------------------------------
 }

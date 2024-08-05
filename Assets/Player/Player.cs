@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 
     public bool isGround;//ジャンプできる状態 = true, ジャンプできない状態 = false
     public float clickspeed;//プレイヤーがターゲットに移動するスピード
-    public float keyspeed;//プレイヤーがキーで移動する
     public float jumppower;//ジャンプ力
     public bool isTouch;//クリックされた状態 = true, クリックされていない状態 = false
 
@@ -32,13 +31,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         clickspeed = 0.05f;//移動速度
-        keyspeed = 1.0f;
         jumppower = 600.0f;//ジャンプの高さ
         target_obj = GameObject.Find("target");//オブジェクトの取得
         isTouch = false;//クリックしているかどうか
         isGround = false;//地面についているかどうか
-        rb2d = GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
-        co2d = GetComponent<Collider2D>();//Collider2Dの取得
+        rb2d = target_obj.GetComponent<Rigidbody2D>();//Rigidbody2Dの取得
+        co2d = target_obj.GetComponent<Collider2D>();//Collider2Dの取得
         co2d.isTrigger = true;
         transform.position = new Vector2(transform.position.x, -3);//プレイヤーの初期位置
     }
@@ -46,29 +44,32 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerJump();
-        PlayerArrowKeyMove();
-        PlayerClickMove();
+        //PlayerJump();
+        //PlayerClickMove();
+        ClickMove();
     }
 
     /// <summary>
-    /// 矢印キー移動処理
+    /// 移動処理
     /// </summary>
-    private void PlayerArrowKeyMove()
+    private void ClickMove()
     {
-        //右矢印キーが押された場合
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (isGround && !co2d.isTrigger)
         {
-            Vector2 pos = transform.position;//現在の位置情報取得
-            pos.x += keyspeed;
-            target_obj.transform.position = pos;//ターゲットごと動かす
+            //スペースキーが押された場合
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb2d.AddForce(target_obj.transform.up * jumppower);//AddForce() 力を加える + ターゲットごと動かす
+                Debug.Log("ジャンプした");
+            }
+            else co2d.isTrigger = true;
         }
-        //左矢印キーが押された場合
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        //左右移動処理（マウスフラグ）
+        if (isTouch == false)
         {
-            Vector2 pos = transform.position;//現在の位置情報取得
-            pos.x -= keyspeed;
-            target_obj.transform.position = pos;//ターゲットごと動かす
+            //プレイヤー座標にターゲットの座標に変換
+            //MoveTowards(移動したいオブジェクトの位置, ターゲットの位置, 移動速度)
+            transform.position = Vector3.MoveTowards(transform.position, target_obj.transform.position, clickspeed);
         }
     }
 
