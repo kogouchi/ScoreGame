@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //Debug.Log("ジャンプした");
-                rb2d.AddForce(new Vector3(0, jumppower, 0));//AddForce() 力を加える
+                rb2d.AddForce(transform.up * jumppower);//AddForce() 力を加える
             }
         }
     }
