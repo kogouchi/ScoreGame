@@ -23,7 +23,7 @@ public class ChangeScene : MonoBehaviour
         Debug.Log("ゲームシーンに切り替え");
     }
 
-    public void game_end()
+    public void GameEnd()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;//ゲーム終了
