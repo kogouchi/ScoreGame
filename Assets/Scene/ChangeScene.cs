@@ -22,7 +22,7 @@ public class ChangeScene : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "TitleScene")
         {
             SceneManager.LoadScene("GameScene");
-            Debug.Log("ゲームシーンに切り替え");
+            //Debug.Log("ゲームシーンに切り替え");
         }
     }
 
@@ -38,7 +38,7 @@ public class ChangeScene : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
             SceneManager.LoadScene("GameScene");
-            Debug.Log("ゲームシーンに切り替え");
+            //Debug.Log("ゲームシーンに切り替え");
         }
     }
 
@@ -47,7 +47,7 @@ public class ChangeScene : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
             SceneManager.LoadScene("TitleScene");
-            Debug.Log("タイトルシーンに切り替え");
+            //Debug.Log("タイトルシーンに切り替え");
         }
     }
 }

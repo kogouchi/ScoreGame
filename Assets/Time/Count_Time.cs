@@ -49,7 +49,7 @@ public class Count_Time : MonoBehaviour
                 timeText.text = "Score" + countup.ToString("f1") + "";
                 isGameOver = true;
                 //SceneManager.LoadScene("ScoreScene");
-                Debug.Log("スコアシーンに切り替え");
+                //Debug.Log("スコアシーンに切り替え");
             }
         }
     }

@@ -48,7 +48,7 @@ public class GameSound : MonoBehaviour
             if (rnd == i)
             {
                 audios[rnd].Play();//再生
-                Debug.Log(rnd + " 番目のBGMを再生");
+                //Debug.Log(rnd + " 番目のBGMを再生");
                 audios[rnd].loop = true;//ループを有効化
             }
             else audios[i].Stop();//停止
