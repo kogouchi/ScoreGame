@@ -17,10 +17,13 @@ public class ChangeScene : MonoBehaviour
         
     }
 
-    public void game_start()
+    public void Game_start()
     {
-        SceneManager.LoadScene("GameScene");
-        Debug.Log("ゲームシーンに切り替え");
+        if(SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            SceneManager.LoadScene("GameScene");
+            Debug.Log("ゲームシーンに切り替え");
+        }
     }
 
     public void GameEnd()
@@ -28,5 +31,23 @@ public class ChangeScene : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;//ゲーム終了
 #endif
+    }
+
+    public void Re_start()
+    {
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            SceneManager.LoadScene("GameScene");
+            Debug.Log("ゲームシーンに切り替え");
+        }
+    }
+
+    public void Title()
+    {
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            SceneManager.LoadScene("TitleScene");
+            Debug.Log("タイトルシーンに切り替え");
+        }
     }
 }
